@@ -3,6 +3,34 @@
 namespace Onebip;
 
 /*
+ * Pluck a column from an array.
+ *
+ * Examples:
+ *    $this->assertSame(
+ *        ['bar', 'bar'],
+ *        array_pluck([['foo' => 'bar', 'bis' => 'ter'],
+ *                     ['foo' => 'bar', 'bis' => 'ter']],
+ *                    'foo')
+ *    );
+ */
+function array_pluck(array $arrays, $column)
+{
+    $plucked = [];
+    foreach ($arrays as $array) {
+        if (is_array($array)) {
+            foreach ($array as $key => $value) {
+                if ($key === $column) {
+                    $plucked[] = $value;
+                    continue 2;
+                }
+            }
+        }
+        $plucked[] = null;
+    }
+    return $plucked;
+}
+
+/*
  * Flattens nested arrays.
  *
  * Examples:
