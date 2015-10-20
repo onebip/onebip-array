@@ -3,6 +3,25 @@
 namespace Onebip;
 
 /*
+ * Iterate over an array and apply a callback to each value.
+ *
+ * Examples:
+ *    $this->assertSame(
+ *        [2, 4, 6],
+ *        array_map([1, 2, 3], function($value) { return $value * 2; })
+ *    );
+ */
+function array_map(array $array, $callback = null)
+{
+    $mapped = [];
+    $callback = $callback ?: function($value) { return $value; };
+    foreach ($array as $key => $value) {
+        $mapped[] = $callback($value, $key, $array);
+    }
+    return $mapped;
+}
+
+/*
  * Pluck a column from an array.
  *
  * Examples:
