@@ -1,0 +1,23 @@
+<project name="onebip-array" default="spec">
+  <property name="project.name" value="${phing.project.name}" />
+  <property name="spec.basedir" value="${project.basedir}/spec" />
+  <property name="vendor.basedir" value="${project.basedir}/vendor" />
+
+  <target name="spec" depends="prepare">
+    <exec command="${vendor.basedir}/bin/phpunit --configuration ${project.basedir}/phpunit.xml"
+          passthru="true"
+          checkreturn="true"
+    />
+  </target>
+
+  <target name="prepare" depends="composer-install" />
+
+  <target name="composer-install">
+      <exec
+          command="composer install"
+          dir="${project.basedir}"
+          passthru="true"
+          checkreturn="true"
+      />
+  </target>
+</project>
