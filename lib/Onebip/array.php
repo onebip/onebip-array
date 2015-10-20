@@ -186,35 +186,19 @@ function array_cartesian_product(array $arrays)
  */
 function array_group_by(array $array, callable $f = null)
 {
-    if ($f === null) {
-        return array_reduce(
-            $array,
-            function($buckets, $x) use ($f) {
-                if (!array_key_exists($x, $buckets)) {
-                    $buckets[$x] = [];
-                }
-
-                $buckets[$x][] = $x;
-                return $buckets;
-            },
-            []
-        );
-    } else {
-        return array_reduce(
-            $array,
-            function($buckets, $x) use ($f) {
-                $key = $f($x);
-
-                if (!array_key_exists($key, $buckets)) {
-                    $buckets[$key] = [];
-                }
-
-                $buckets[$key][] = $x;
-                return $buckets;
-            },
-            []
-        );
-    }
+    $f = $f ?: function($value) { return $value; };
+    return array_reduce(
+        $array,
+        function($buckets, $x) use ($f) {
+            $key = $f($x);
+            if (!array_key_exists($key, $buckets)) {
+                $buckets[$key] = [];
+            }
+            $buckets[$key][] = $x;
+            return $buckets;
+        },
+        []
+    );
 }
 
 /**
