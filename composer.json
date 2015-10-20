@@ -1,0 +1,11 @@
+{
+    "name": "onebip/onebip-array",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giorgio Sironi",
+            "email": "giorgio.sironi@onebip.com"
+        }
+    ],
+    "require": {}
+}
