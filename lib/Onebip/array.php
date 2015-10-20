@@ -11,12 +11,12 @@ namespace Onebip;
  *        array_map([1, 2, 3], function($value) { return $value * 2; })
  *    );
  */
-function array_map(array $array, $callback = null)
+function array_map(array $array, callable $mapper = null)
 {
     $mapped = [];
-    $callback = $callback ?: function($value) { return $value; };
+    $mapper = $mapper ?: function($value) { return $value; };
     foreach ($array as $key => $value) {
-        $mapped[] = $callback($value, $key, $array);
+        $mapped[] = call_user_func($mapper, $value, $key, $array);
     }
     return $mapped;
 }
@@ -95,8 +95,8 @@ function array_flatten(array $array)
  */
 function array_all($array, callable $predicate)
 {
-    foreach ($array as $elem) {
-        if (!call_user_func($predicate, $elem)) {
+    foreach ($array as $key => $value) {
+        if (!call_user_func($predicate, $value, $key, $array)) {
             return false;
         }
     }
@@ -117,7 +117,7 @@ function array_all($array, callable $predicate)
 function array_some(array $array, callable $predicate)
 {
     foreach ($array as $key => $value) {
-        if (call_user_func($predicate, $value, $key)) {
+        if (call_user_func($predicate, $value, $key, $array)) {
             return true;
         }
     }
