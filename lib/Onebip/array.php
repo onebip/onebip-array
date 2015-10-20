@@ -100,8 +100,28 @@ function array_all($array, callable $predicate)
             return false;
         }
     }
-
     return true;
+}
+
+/*
+ * Returns true if some items in an array match a truth test
+ *
+ * Examples:
+ *
+ *      $this->assertTrue(
+ *          array_some([1, 2, 3], function($value, $key) {
+ *              return $value % 2 === 0;
+ *          })
+ *      );
+ */
+function array_some(array $array, callable $predicate)
+{
+    foreach ($array as $key => $value) {
+        if (call_user_func($predicate, $value, $key)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*
