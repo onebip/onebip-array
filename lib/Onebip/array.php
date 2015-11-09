@@ -3,6 +3,32 @@
 namespace Onebip;
 
 /*
+ * Concatenates every parameters in an array. Parameters could be scalar values
+ * or arrays. Doesn't preserve keys.
+ *
+ * Examples:
+ *    $this->assertSame(
+ *        [1, 2, 3, 4],
+ *        array_concat(1, [2, 3], [4])
+ *    );
+ */
+function array_concat(/* $element, ... */)
+{
+    $concatenated = [];
+    $arguments = func_get_args();
+    foreach ($arguments as $argument) {
+        if (is_array($argument)) {
+            foreach ($argument as $element) {
+                $concatenated[] = $element;
+            }
+        } else {
+            $concatenated[] = $argument;
+        }
+    }
+    return $concatenated;
+}
+
+/*
  * Iterate over an array and apply a callback to each value.
  *
  * Examples:
