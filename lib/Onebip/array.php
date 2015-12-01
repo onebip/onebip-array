@@ -271,3 +271,22 @@ function array_as_hierarchy(array $array, $separator = '.')
     }
     return $hierarchy;
 }
+
+/**
+ * Tells if it's a numeric array or not
+ *
+ * Examples:
+ *       $this->assertTrue(is_numeric_array([1,2,3]));
+ *       $this->assertTrue(is_numeric_array(['foo', 'bar']));
+ *       $this->assertFalse(is_numeric_array(['field-1' => 1, 'field-2' => 2]));
+ *       $this->assertFalse(is_numeric_array([1, 2, 'field' => 3]));
+ */
+function is_numeric_array(array $array)
+{
+    foreach ($array as $key => $_) {
+        if (!is_integer($key)) {
+            return false;
+        }
+    }
+    return true;
+}
