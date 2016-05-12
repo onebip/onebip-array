@@ -3,6 +3,20 @@
 namespace Onebip;
 
 /*
+ * Variant of PHP's array_reduce, but it supports any traversable in input
+ * (arrays or objects instance Traversable) and is sensible to associative
+ * arrays, other than normal arrays.
+ */
+function array_reduce($array, callable $f, $acc)
+{
+    foreach ($array as $key => $value) {
+        $acc = call_user_func($f, $acc, $value, $key);
+    }
+
+    return $acc;
+}
+
+/*
  * Concatenates every parameters in an array. Parameters could be scalar values
  * or arrays. Doesn't preserve keys.
  *
@@ -37,7 +51,7 @@ function array_concat(/* $element, ... */)
  *        array_map([1, 2, 3], function($value) { return $value * 2; })
  *    );
  */
-function array_map(array $array, callable $mapper = null)
+function array_map($array, callable $mapper = null)
 {
     $mapped = [];
     $mapper = $mapper ?: function($value) { return $value; };
@@ -58,7 +72,7 @@ function array_map(array $array, callable $mapper = null)
  *                    'foo')
  *    );
  */
-function array_pluck(array $arrays, $column)
+function array_pluck($arrays, $column)
 {
     $plucked = [];
     foreach ($arrays as $array) {
@@ -85,12 +99,12 @@ function array_pluck(array $arrays, $column)
  *        array_flatten([1, [2, [3, [4, 5]]]])
  *    );
  */
-function array_flatten(array $array)
+function array_flatten($array)
 {
     return array_reduce(
         $array,
         function($acc, $item) {
-            if (is_array($item)) {
+            if (is_array($item) || $item instanceof \Traversable) {
                 return array_merge($acc, array_flatten($item));
             } else {
                 $acc[] = $item;
@@ -140,7 +154,7 @@ function array_all($array, callable $predicate)
  *          })
  *      );
  */
-function array_some(array $array, callable $predicate)
+function array_some($array, callable $predicate)
 {
     foreach ($array as $key => $value) {
         if (call_user_func($predicate, $value, $key, $array)) {
@@ -210,7 +224,7 @@ function array_cartesian_product(array $arrays)
  *            )
  *        );
  */
-function array_group_by(array $array, callable $f = null)
+function array_group_by($array, callable $f = null)
 {
     $f = $f ?: function($value) { return $value; };
     return array_reduce(

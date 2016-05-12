@@ -12,6 +12,14 @@ class ArrayMapTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testIterator()
+    {
+        $this->assertSame(
+            [2, 4, 6],
+            array_map(new Range(1, 4), function($value) { return $value * 2; })
+        );
+    }
+
     public function testIdentity()
     {
         $this->assertSame([], array_map([]));

@@ -29,4 +29,17 @@ class ArrayGroupByTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
+
+    public function testIterator()
+    {
+        $this->assertSame(
+            [
+                1 => [1],
+                2 => [2, 2],
+                3 => [3, 3],
+                4 => [4],
+            ],
+            array_group_by(new \ArrayIterator([1, 2, 2, 3, 3, 4]))
+        );
+    }
 }
