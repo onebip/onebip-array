@@ -2,6 +2,8 @@
 
 namespace Onebip;
 
+use InvalidArgumentException;
+
 /*
  * Variant of PHP's array_reduce, but it supports any traversable in input
  * (arrays or objects instance Traversable) and is sensible to associative
@@ -303,4 +305,32 @@ function is_numeric_array(array $array)
         }
     }
     return true;
+}
+
+/**
+ * Safe access to array, with optional fallback.
+ *
+ * Examples:
+ *      array_fetch(['foo'], 0) -> 'foo'
+ *      array_fetch([], 0, 'bar') -> 'bar'
+ *      array_fetch([], 0, function($i) { return $i + 10; }) -> 10
+ */
+function array_fetch($array, $key /* plus optional $fallback */) {
+    $presence = array_key_exists($key, $array);
+
+    if ($presence) {
+        return $array[$key];
+    }
+
+    if (func_num_args() < 3) {
+        throw new InvalidArgumentException("key not found $key");
+    }
+
+    $fallback = func_get_arg(2);
+
+    if (is_callable($fallback)) {
+        return $fallback($key);
+    } else {
+        return $fallback;
+    }
 }
