@@ -352,3 +352,34 @@ function array_update($array, $key, callable $f)
 
     return $array;
 }
+
+/**
+ * Returns the maximum value in the array, or null when array is empty.
+ */
+function array_max($array)
+{
+    if (empty($array)) {
+        return null;
+    }
+
+    if (is_array($array)) {
+        $max = $array[0];
+        $tail = array_slice($array, 1);
+    } else {
+        $max = $array->current();
+        $array->next();
+        $tail = $array;
+    }
+
+    return array_reduce(
+        $tail,
+        function ($max, $value) {
+            if ($value > $max) {
+                return $value;
+            } else {
+                return $max;
+            }
+        },
+        $max
+    );
+}
