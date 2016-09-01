@@ -334,3 +334,21 @@ function array_fetch($array, $key /* plus optional $fallback */) {
         return $fallback;
     }
 }
+
+/**
+ * Updates an element of the array using a function, only if the value
+ * is present and it's not null.
+ *
+ * Examples:
+ *   array_update(['a' => 0], 'a', function ($n) { return $n + 1; })
+ *      -> ['a' => 0]
+ *   array_update([], 0, function ($n) { return $n + 1; }) -> []
+ */
+function array_update($array, $key, callable $f)
+{
+    if (isset($array[$key])) {
+        $array[$key] = $f($array[$key]);
+    }
+
+    return $array;
+}
