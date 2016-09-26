@@ -383,3 +383,23 @@ function array_max($array)
         $max
     );
 }
+
+/**
+ * Returns the value in a nested associative structure,
+ * where $path is an array of keys. Returns null if the key
+ * is not present, or the $default value if supplied.
+ */
+function array_get_in($array, array $path, $default = null)
+{
+    if (empty($path)) {
+        return $array;
+    }
+
+    $head = array_shift($path);
+
+    if (!array_key_exists($head, $array)) {
+        return $default;
+    }
+
+    return array_get_in($array[$head], $path, $default);
+}
