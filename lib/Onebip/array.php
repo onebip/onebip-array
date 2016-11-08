@@ -403,3 +403,14 @@ function array_get_in($array, array $path, $default = null)
 
     return array_get_in($array[$head], $path, $default);
 }
+
+/**
+ * Is array1 a subset of array2?
+ */
+function array_subset(array $array1, array $array2)
+{
+    return (count($array1) <= count($array2)) &&
+        array_all($array1, function ($elem) use ($array2) {
+            return in_array($elem, $array2);
+        });
+}
