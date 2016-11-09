@@ -44,6 +44,58 @@ function array_concat(/* $element, ... */)
     return $concatenated;
 }
 
+
+/*
+ * Merges two array recursively, it behaves like `array_merge` from
+ * the standard library but applied recursively. There's a difference
+ * between this implementation and `array_merge_recursive` from the
+ * standard library: `array_merge_recursive` when two values need
+ * to be merged and they are not array, an array will be created
+ * with both values, this function will keep the second value and
+ * discard the first
+ *
+ * Examples:
+ *    $this->assertSame(
+ *        ['a' => [1, 2, 3, 4]],
+ *        array_merge(['a' => [1, 2]], ['a' => [3, 4]]))
+ *    );
+ *
+ *    $this->assertSame(
+ *        ['a' => 1, 'b' => 2],
+ *        array_merge(['a' => 1], ['b' => 2]))
+ *    );
+ *
+ *    $this->assertSame(
+ *        ['a' => 2],
+ *        array_merge(['a' => 1], ['a' => 2]))
+ *    );
+ */
+function array_merge(/* $array, ... */)
+{
+    $merged = [];
+    $arrays = array_reverse(func_get_args());
+    while (!empty($arrays)) {
+        $current = array_shift($arrays);
+        if (!is_array($current)) {
+            $current = [$current];
+        }
+        foreach (array_reverse($current) as $key => $value) {
+            if (array_key_exists($key, $merged)) {
+                if (is_array($value) && is_array($merged[$key])) {
+                    $merged[$key] = array_merge($value, $merged[$key]);
+                }
+                if (is_numeric($key)) {
+                    $merged[] = $value;
+                }
+            } else {
+                $merged[$key] = $value;
+            }
+        }
+    }
+    return array_reverse($merged);
+}
+
+
 /*
  * Iterate over an array and apply a callback to each value.
  *
