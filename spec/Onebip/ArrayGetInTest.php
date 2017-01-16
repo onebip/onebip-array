@@ -46,5 +46,11 @@ class ArrayGetIn extends \PHPUnit_Framework_TestCase
             0,
             array_get_in($array, [0, 'foo', 0, 'ber'], 0)
         );
+
+        $this->assertSame(
+            0,
+            array_get_in(
+                ['a' => ['b' => '']], ['a', 'b', 'c'], 0)
+            );
     }
 }

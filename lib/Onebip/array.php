@@ -449,7 +449,7 @@ function array_get_in($array, array $path, $default = null)
 
     $head = array_shift($path);
 
-    if (!array_key_exists($head, $array)) {
+    if (!is_array($array) || !array_key_exists($head, $array)) {
         return $default;
     }
 
