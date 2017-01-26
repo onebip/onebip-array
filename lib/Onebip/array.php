@@ -466,3 +466,15 @@ function array_subset(array $array1, array $array2)
             return in_array($elem, $array2);
         });
 }
+
+/**
+ * Returns a the element for which predicate returns true.
+ */
+function array_find($array, callable $pred)
+{
+    foreach ($array as $elem) {
+        if (call_user_func($pred, $elem, $array)) {
+            return $elem;
+        }
+    }
+}
