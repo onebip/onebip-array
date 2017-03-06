@@ -105,12 +105,18 @@ function array_merge(/* $array, ... */)
  *        array_map([1, 2, 3], function($value) { return $value * 2; })
  *    );
  */
-function array_map($array, callable $mapper = null)
+function array_map($array, callable $mapper = null, $preserveKeys = false)
 {
     $mapped = [];
     $mapper = $mapper ?: function($value) { return $value; };
-    foreach ($array as $key => $value) {
-        $mapped[] = call_user_func($mapper, $value, $key, $array);
+    if ($preserveKeys) {
+        foreach ($array as $key => $value) {
+            $mapped[$key] = call_user_func($mapper, $value, $key, $array);
+        }
+    } else {
+        foreach ($array as $key => $value) {
+            $mapped[] = call_user_func($mapper, $value, $key, $array);
+        }
     }
     return $mapped;
 }

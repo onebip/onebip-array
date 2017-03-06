@@ -26,6 +26,13 @@ class ArrayMapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([1, 2, 3], array_map([1, 2, 3]));
     }
 
+    public function testIdentityPreservingKeys()
+    {
+        $array = ['1' => 1, '2' => 2, '3' => 3];
+        $this->assertSame($array, array_map($array, null, true));
+        $this->assertNotSame($array, array_map($array, null, false));
+    }
+
     public function testIndexesAreLost()
     {
         $this->assertSame([1, 2, 3], array_map(['1' => 1, '2' => 2, '3' => 3]));
