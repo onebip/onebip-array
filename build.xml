@@ -10,6 +10,8 @@
     />
   </target>
 
+  <target name="dds" depends="prepare,spec" />
+
   <target name="prepare" depends="composer-install" />
 
   <target name="composer-install">
