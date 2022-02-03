@@ -20,7 +20,7 @@ test: composer phpunit ## Test task: composer, phpunit
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	@COMPOSER_ALLOW_SUPERUSER=1 ./vendor/bin/phpunit --exclude-group long spec
+	@COMPOSER_ALLOW_SUPERUSER=1 ./vendor/bin/phpunit spec
 
 .PHONY: composer-upgrade
 composer-upgrade:

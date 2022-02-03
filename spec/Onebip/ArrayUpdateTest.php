@@ -2,9 +2,11 @@
 
 namespace Onebip;
 
-class ArrayUpdateTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayUpdateTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->array = [0, 1, 2, null, 'a' => 1, 'b' => null];
     }

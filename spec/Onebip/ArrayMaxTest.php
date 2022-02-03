@@ -3,8 +3,9 @@
 namespace Onebip;
 
 use ArrayIterator;
+use PHPUnit\Framework\TestCase;
 
-class ArrayMaxTest extends \PHPUnit_Framework_TestCase
+class ArrayMaxTest extends TestCase
 {
     public function testArrayMax()
     {

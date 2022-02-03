@@ -2,9 +2,12 @@
 
 namespace Onebip;
 
-class Arrayarray_fetchTest extends \PHPUnit_Framework_TestCase
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
+
+class ArrayFetchTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->array = [0, 1, 2, null, 'a' => 1, 'b' => null];
     }
@@ -36,12 +39,11 @@ class Arrayarray_fetchTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage key not found 4
-     */
     public function testError()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('key not found 4');
+
         $this->assertSame('fallback', array_fetch($this->array, '4'));
     }
 }

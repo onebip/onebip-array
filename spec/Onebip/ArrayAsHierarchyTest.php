@@ -2,7 +2,9 @@
 
 namespace Onebip;
 
-class ArrayAsHierarchyTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayAsHierarchyTest extends TestCase
 {
     public function testDottedNotationToHierarchical()
     {

@@ -2,7 +2,9 @@
 
 namespace Onebip;
 
-class ArrayFindTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayFindTest extends TestCase
 {
     public function testArrayFind()
     {
