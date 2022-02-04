@@ -2,7 +2,9 @@
 
 namespace Onebip;
 
-class ArrayCartesianProductTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayCartesianProductTest extends TestCase
 {
     public function testArrayCartesianProduct()
     {

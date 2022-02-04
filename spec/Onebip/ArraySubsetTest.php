@@ -2,7 +2,9 @@
 
 namespace Onebip;
 
-class ArraySubsetTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArraySubsetTest extends TestCase
 {
     public function testArraySubset()
     {

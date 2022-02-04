@@ -2,9 +2,10 @@
 
 namespace Onebip;
 
+use PHPUnit\Framework\TestCase;
 use function Onebip\array_reduce;
 
-class ArrayReduceTest extends \PHPUnit_Framework_TestCase
+class ArrayReduceTest extends TestCase
 {
     public function testArrayReduce()
     {

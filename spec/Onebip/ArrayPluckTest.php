@@ -2,7 +2,9 @@
 
 namespace Onebip;
 
-class ArrayPluckTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayPluckTest extends TestCase
 {
     public function testArrayPluckColumn()
     {

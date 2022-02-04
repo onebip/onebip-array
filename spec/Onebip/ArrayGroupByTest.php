@@ -2,7 +2,9 @@
 
 namespace Onebip;
 
-class ArrayGroupByTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayGroupByTest extends TestCase
 {
     public function testArrayGroupBy()
     {

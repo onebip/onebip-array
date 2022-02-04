@@ -2,8 +2,9 @@
 namespace Onebip;
 
 use ArrayIterator;
+use PHPUnit\Framework\TestCase;
 
-class ArrayGetIn extends \PHPUnit_Framework_TestCase
+class ArrayGetInTest extends TestCase
 {
     public function testArray()
     {
